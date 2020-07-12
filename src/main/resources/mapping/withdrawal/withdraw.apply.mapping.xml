@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.rltx.wspay.withdrawal.dao.WithdrawDao">
+
+
+    <insert id="insert" parameterType="com.rltx.wspay.withdrawal.entity.WithdrawApplyEntity" useGeneratedKeys="true" keyProperty="id">
+        INSERT INTO ws_cloud_pay.withdraw_apply (
+            merch_id,
+            out_trade_no,
+            total_amount,
+            currency,
+            platform_fee,
+            fee_currency,
+            memo,
+            flag,
+            order_no,
+            create_time,
+            create_by,
+            update_time,
+            update_by
+        )
+        VALUES (
+            #{withdrawApplyEntity.merchantId},
+            #{withdrawApplyEntity.outTradeNo},
+            #{withdrawApplyEntity.totalAmount},
+            #{withdrawApplyEntity.currency},
+            #{withdrawApplyEntity.platformFee},
+            #{withdrawApplyEntity.feeCurrency},
+            #{withdrawApplyEntity.memo},
+            #{withdrawApplyEntity.flag},
+            #{withdrawApplyEntity.orderNo},
+            #{withdrawApplyEntity.createTime},
+            #{withdrawApplyEntity.createBy},
+            #{withdrawApplyEntity.updateTime},
+            #{withdrawApplyEntity.updateBy}
+        )
+    </insert>
+
+    <update id="updateFlag">
+        UPDATE
+        ws_cloud_pay.withdraw_apply
+        SET
+        flag = #{entity.flag},
+        update_by = #{entity.updateBy},
+        update_time = #{entity.updateTime}
+        WHERE
+        out_trade_no = #{entity.outTradeNo}
+    </update>
+
+    <update id="updateNotify">
+        UPDATE
+        ws_cloud_pay.withdraw_apply
+        SET
+        bank_card_no = #{entity.bankCardNo},
+        bank_cert_name = #{entity.bankCertName},
+        withdraw_apply_date = #{entity.withdrawApplyDate},
+        withdraw_finish_date = #{entity.withdrawFinishDate},
+        error_desc = #{entity.errorDesc},
+        flag = #{entity.flag},
+        update_by = #{entity.updateBy},
+        update_time = #{entity.updateTime}
+        WHERE
+        out_trade_no = #{entity.outTradeNo}
+    </update>
+
+
+    <select id="select" resultType="com.rltx.wspay.withdrawal.entity.WithdrawApplyEntity">
+        SELECT
+            merch_id AS merchantId,
+            out_trade_no AS outTradeNo,
+            total_amount AS totalAmount,
+            currency AS currency,
+            platform_fee AS platformFee,
+            fee_currency AS feeCurrency,
+            memo AS memo,
+            flag AS flag,
+            order_no AS orderNo,
+            create_time AS createTime,
+            create_by AS createBy,
+            update_time AS updateTime,
+            update_by AS updateBy
+        FROM
+            ws_cloud_pay.withdraw_apply
+        WHERE
+            out_trade_no = #{outTradeNo}
+    </select>
+
+</mapper>

@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.rltx.wspay.bindbankcard.dao.OtherRegisterBindPendRecDao" >
+
+    <insert id="insert" useGeneratedKeys="true" keyProperty="id" keyColumn="id">
+        insert into ws_cloud_pay.other_register_bind_pend_rec (
+            code,
+            driver_code,
+            payee_user_code,
+            payee_bank_account_name,
+            payee_bank_card_no,
+            payee_id_no,
+            payee_merchant_id,
+            payee_register_status,
+            payee_bind_card_status,
+            payee_register_num,
+            payee_bind_num,
+            create_by,
+            create_time,
+            update_by,
+            update_time
+        )values (
+            #{code},
+            #{driverCode},
+            #{payeeUserCode},
+            #{payeeBankAccountName},
+            #{payeeBankCardNo},
+            #{payeeIdNo},
+            #{merchantId},
+            #{payeeRegisterStatus},
+            #{payeeBindCardStatus},
+            #{payeeRegisterNum},
+            #{payeeBindNum},
+            #{createBy},
+            #{createTime},
+            #{updateBy},
+            #{updateTime}
+        )
+    </insert>
+
+
+    <insert id="insertSelect" useGeneratedKeys="true" keyProperty="id" keyColumn="id">
+        insert into ws_cloud_pay.other_register_bind_pend_rec (
+            code,
+            driver_code,
+            payee_user_code,
+            payee_bank_account_name,
+            payee_bank_card_no,
+            payee_id_no,
+            payee_merchant_id,
+            payee_register_status,
+            payee_bind_card_status,
+            payee_register_num,
+            payee_bind_num,
+            create_by,
+            create_time,
+            update_by,
+            update_time
+        )values (
+            #{code},
+            #{driverCode},
+            #{payeeUserCode},
+            #{payeeBankAccountName},
+            #{payeeBankCardNo},
+            #{payeeIdNo},
+            #{merchantId},
+            #{payeeRegisterStatus},
+            #{payeeBindCardStatus},
+            #{payeeRegisterNum},
+            #{payeeBindNum},
+            #{createBy},
+            #{createTime},
+            #{updateBy},
+            #{updateTime}
+        )
+         ON DUPLICATE KEY UPDATE update_time = #{updateTime}
+    </insert>
+
+
+    <select id="selectList" resultType="com.rltx.wspay.bindbankcard.entity.OtherRegisterBindPendRecEntity">
+        SELECT
+            id AS "id",
+            code AS "code",
+            driver_code as  "driverCode",
+            payee_user_code as "payeeUserCode",
+            payee_bank_account_name as "payeeBankAccountName",
+            payee_bank_card_no as "payeeBankCardNo",
+            payee_id_no as "payeeIdNo",
+            payee_merchant_id as "merchantId",
+            payee_register_status as "payeeRegisterStatus",
+            payee_bind_card_status as "payeeBindCardStatus",
+            payee_register_num as "payeeRegisterNum",
+            payee_bind_num as "payeeBindNum"
+        FROM
+            ws_cloud_pay.other_register_bind_pend_rec
+        WHERE
+            <if test="params.driverCode != null and params.driverCode != ''">
+                 and driver_code = #{params.driverCode}
+            </if>
+            <if test="params.payeeUserCode != null and params.payeeUserCode != ''">
+                 and payee_user_code = #{params.payeeUserCode}
+            </if>
+            <if test="params.payeeBankAccountName != null and params.payeeBankAccountName != ''">
+                and payee_bank_account_name = #{params.payeeBankAccountName}
+            </if>
+            <if test="params.payeeBankCardNo != null and params.payeeBankCardNo != ''">
+                and payee_bank_card_no = #{params.payeeBankCardNo}
+            </if>
+            <if test="params.payeeIdNo != null and params.payeeIdNo != ''">
+                and payee_id_no = #{params.payeeIdNo}
+            </if>
+            <if test="params.payeeRegisterStatus != null and params.payeeRegisterStatus != ''">
+                and payee_register_status = #{params.payeeRegisterStatus}
+            </if>
+            <if test="params.payeeBindCardStatus != null and params.payeeBindCardStatus != ''">
+                and payee_bind_card_status = #{params.payeeBindCardStatus}
+            </if>
+            AND deleted = '0'
+    </select>
+
+
+    <select id="select"  resultType="com.rltx.wspay.bindbankcard.entity.OtherRegisterBindPendRecEntity">
+        SELECT
+            id AS "id",
+            code AS "code",
+            driver_code as  "driverCode",
+            payee_user_code as "payeeUserCode",
+            payee_bank_account_name as "payeeBankAccountName",
+            payee_bank_card_no as "payeeBankCardNo",
+            payee_id_no as "payeeIdNo",
+            payee_merchant_id as "merchantId",
+            payee_register_status as "payeeRegisterStatus",
+            payee_bind_card_status as "payeeBindCardStatus",
+            payee_register_num as "payeeRegisterNum",
+            payee_bind_num as "payeeBindNum"
+        FROM
+        ws_cloud_pay.other_register_bind_pend_rec
+        WHERE
+        <if test="params.payeeBankCardNo != null and params.payeeBankCardNo != ''">
+            payee_bank_card_no = #{params.payeeBankCardNo}
+        </if>
+        AND deleted = '0'
+    </select>
+
+</mapper>

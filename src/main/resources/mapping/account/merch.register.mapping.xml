@@ -1,0 +1,288 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.rltx.wspay.account.dao.MerchRegisterDao">
+
+
+    <insert id="insert" parameterType="com.rltx.wspay.account.entity.MerchRegisterEntity" useGeneratedKeys="true" keyProperty="id">
+        INSERT INTO ws_cloud_pay.merch_register (
+            code,
+            merch_id,
+            out_merch_id,
+            merch_user_code,
+            merch_name,
+            type,
+            merch_type,
+            phone,
+            name,
+            create_by,
+            create_time,
+            update_by,
+            update_time
+        )
+        VALUES (
+            #{entity.code},
+            #{entity.merchId},
+            #{entity.outMerchId},
+            #{entity.merchUserCode},
+            #{entity.merchName},
+            #{entity.type},
+            #{entity.merchType},
+            #{entity.phone},
+            #{entity.name},
+            #{entity.createBy},
+            #{entity.createTime},
+            #{entity.updateBy},
+            #{entity.updateTime}
+        )
+    </insert>
+
+
+    <update id="update">
+        UPDATE
+        ws_cloud_pay.merch_register
+        SET
+        order_no = #{entity.orderNo},
+        merch_id = #{entity.merchId},
+        response_data = #{entity.responseData},
+        result_status = #{entity.resultStatus},
+        update_by = #{entity.updateBy},
+        update_time = #{entity.updateTime}
+        WHERE
+        out_trade_no = #{entity.outTradeNo}
+    </update>
+
+    <select id="selectByMerchUserCode" parameterType="String" resultType="com.rltx.wspay.account.entity.MerchRegisterEntity">
+        SELECT
+            code AS code,
+            merch_id AS merchId,
+            out_merch_id AS outMerchId,
+            merch_user_code AS merchUserCode,
+            merch_name AS merchName,
+            type AS type,
+            merch_type AS merchType,
+            phone AS phone,
+            name AS name,
+            card_no AS cardNo,
+            card_name AS cardName,
+            opening_bank AS openingBank,
+            contact_line AS contactLine,
+            account_type AS accountType,
+            basic AS basic,
+            prepay AS prepay,
+            trade_deposit AS tradeDeposit,
+            register_status AS registerStatus,
+            open_pay AS openPay,
+            create_by AS createBy,
+            create_time AS createTime,
+            update_by AS updateBy,
+            update_time AS updateTime,
+            deleted AS deleted
+
+        FROM
+            ws_cloud_pay.merch_register
+        WHERE
+            deleted = '0'
+            AND
+            register_status != '2'
+            AND
+            merch_user_code = #{merchUserCode}
+            AND
+            account_type = #{accountType}
+    </select>
+
+    <select id="selectByMerchUserCodeType" parameterType="String" resultType="com.rltx.wspay.account.entity.MerchRegisterEntity">
+        SELECT
+            code AS code,
+            merch_id AS merchId,
+            out_merch_id AS outMerchId,
+            merch_user_code AS merchUserCode,
+            merch_name AS merchName,
+            type AS type,
+            merch_type AS merchType,
+            phone AS phone,
+            name AS name,
+            card_no AS cardNo,
+            card_name AS cardName,
+            opening_bank AS openingBank,
+            contact_line AS contactLine,
+            account_type AS accountType,
+            basic AS basic,
+            prepay AS prepay,
+            trade_deposit AS tradeDeposit,
+            register_status AS registerStatus,
+            open_pay AS openPay,
+            create_by AS createBy,
+            create_time AS createTime,
+            update_by AS updateBy,
+            update_time AS updateTime,
+            deleted AS deleted
+
+        FROM
+            ws_cloud_pay.merch_register
+        WHERE
+            deleted = '0'
+            AND
+            register_status != '2'
+            AND
+            merch_user_code = #{merchUserCode}
+            AND
+            account_type = #{accountType}
+    </select>
+
+
+    <select id="selectByCode" parameterType="String" resultType="com.rltx.wspay.account.entity.MerchRegisterEntity">
+        SELECT
+            code AS code,
+            merch_id AS merchId,
+            out_merch_id AS outMerchId,
+            merch_user_code AS merchUserCode,
+            merch_name AS merchName,
+            type AS type,
+            merch_type AS merchType,
+            phone AS phone,
+            name AS name,
+            card_no AS cardNo,
+            card_name AS cardName,
+            opening_bank AS openingBank,
+            contact_line AS contactLine,
+            account_type AS accountType,
+            basic AS basic,
+            prepay AS prepay,
+            trade_deposit AS tradeDeposit,
+            register_status AS registerStatus,
+            open_pay AS openPay,
+            create_by AS createBy,
+            create_time AS createTime,
+            update_by AS updateBy,
+            update_time AS updateTime,
+            deleted AS deleted
+
+        FROM
+            ws_cloud_pay.merch_register
+        WHERE
+            deleted = '0'
+            AND
+            code = #{code}
+
+    </select>
+
+    <select id="selectListByMerchId" parameterType="String" resultType="com.rltx.wspay.account.entity.MerchRegisterEntity">
+        SELECT
+            code AS code,
+            merch_id AS merchId,
+            out_merch_id AS outMerchId,
+            merch_user_code AS merchUserCode,
+            merch_name AS merchName,
+            type AS type,
+            merch_type AS merchType,
+            phone AS phone,
+            name AS name,
+            card_no AS cardNo,
+            card_name AS cardName,
+            opening_bank AS openingBank,
+            contact_line AS contactLine,
+            account_type AS accountType,
+            basic AS basic,
+            prepay AS prepay,
+            trade_deposit AS tradeDeposit,
+            register_status AS registerStatus,
+            open_pay AS openPay,
+            create_by AS createBy,
+            create_time AS createTime,
+            update_by AS updateBy,
+            update_time AS updateTime,
+            deleted AS deleted
+
+        FROM
+            ws_cloud_pay.merch_register
+        WHERE
+            deleted = '0'
+            AND
+            merch_id = #{merchId}
+
+    </select>
+
+    <select id="selectByMerchId" parameterType="String" resultType="com.rltx.wspay.account.entity.MerchRegisterEntity">
+        SELECT
+            code AS code,
+            merch_id AS merchId,
+            out_merch_id AS outMerchId,
+            merch_user_code AS merchUserCode,
+            merch_name AS merchName,
+            type AS type,
+            merch_type AS merchType,
+            phone AS phone,
+            name AS name,
+            card_no AS cardNo,
+            card_name AS cardName,
+            opening_bank AS openingBank,
+            contact_line AS contactLine,
+            account_type AS accountType,
+            basic AS basic,
+            prepay AS prepay,
+            trade_deposit AS tradeDeposit,
+            register_status AS registerStatus,
+            open_pay AS openPay,
+            create_by AS createBy,
+            create_time AS createTime,
+            update_by AS updateBy,
+            update_time AS updateTime,
+            deleted AS deleted
+
+        FROM
+            ws_cloud_pay.merch_register
+        WHERE
+            deleted = '0'
+            AND
+            merch_id = #{merchId}
+
+    </select>
+
+    <update id="updateOpenPay">
+        UPDATE
+        ws_cloud_pay.merch_register
+        SET
+        open_pay = #{entity.openPay},
+        update_by = #{entity.updateBy},
+        update_time = #{entity.updateTime}
+        WHERE
+        merch_id = #{entity.merchId}
+    </update>
+
+    <update id="updateMerchId">
+        UPDATE
+        ws_cloud_pay.merch_register
+        SET
+        merch_id = #{entity.merchId},
+        register_status = #{entity.registerStatus},
+        update_by = #{entity.updateBy},
+        update_time = #{entity.updateTime}
+        WHERE
+        code = #{entity.code}
+    </update>
+
+    <update id="updateTradeDeposit">
+        UPDATE
+        ws_cloud_pay.merch_register
+        SET
+        trade_deposit = #{entity.tradeDeposit},
+        update_by = #{entity.updateBy},
+        update_time = #{entity.updateTime}
+        WHERE
+        merch_id = #{entity.merchId}
+    </update>
+
+    <update id="updateCard">
+        UPDATE
+        ws_cloud_pay.merch_register
+        SET
+        card_no = #{entity.cardNo},
+        card_name = #{entity.cardName},
+        opening_bank = #{entity.openingBank},
+        contact_line = #{entity.contactLine} ,
+        update_by = #{entity.updateBy},
+        update_time = #{entity.updateTime}
+        WHERE
+        code = #{entity.code}
+    </update>
+</mapper>

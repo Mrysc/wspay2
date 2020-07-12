@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.rltx.wspay.pay.dao.ElectronicreceiptDao">
+
+    <insert id="insert" parameterType="com.rltx.wspay.pay.entity.ElectronicReceiptEntity" useGeneratedKeys="true" keyProperty="id">
+        INSERT INTO ws_cloud_pay.electronicreceipt_record (
+            payment_code,
+            mearch_id,
+            order_no,
+            out_trade_no,
+            receipt_no,
+            create_by,
+            create_time,
+            update_by,
+            update_time
+        )
+        VALUES (
+            #{entity.paymentCode},
+            #{entity.merchantId},
+            #{entity.orderNo},
+            #{entity.outTradeNo},
+            #{entity.receiptNo},
+            #{entity.createBy},
+            #{entity.createTime},
+            #{entity.updateBy},
+            #{entity.updateTime}
+        )
+    </insert>
+
+
+
+    <update id="update">
+        UPDATE
+        ws_cloud_pay.electronicreceipt_record
+        SET
+        status = #{entity.status},
+        pdf_download_url = #{entity.pdfDownloadUrl},
+        update_by = #{entity.updateBy},
+        update_time = #{entity.updateTime}
+        WHERE
+        out_trade_no = #{entity.outTradeNo}
+    </update>
+
+
+    <select id="selectByOutTradeNo" parameterType="String" resultType="com.rltx.wspay.pay.entity.ElectronicReceiptEntity">
+        SELECT
+            payment_code AS paymentCode,
+            mearch_id AS merchantId,
+            order_no AS orderNo,
+            out_trade_no AS outTradeNo,
+            receipt_no AS receiptNo,
+            pdf_download_url AS pdfDownloadUrl,
+            status AS status,
+            create_by AS createBy,
+            create_time AS createTime,
+            update_by AS updateBy,
+            update_time AS updateTime,
+            deleted AS deleted
+        FROM
+            ws_cloud_pay.electronicreceipt_record
+        WHERE
+            deleted = '0'
+            AND
+            out_trade_no = #{outTradeNo}
+    </select>
+
+
+    <select id="selectByPaymentCode" parameterType="String" resultType="com.rltx.wspay.pay.entity.ElectronicReceiptEntity">
+        SELECT
+            payment_code AS paymentCode,
+            mearch_id AS merchantId,
+            order_no AS orderNo,
+            out_trade_no AS outTradeNo,
+            receipt_no AS receiptNo,
+            pdf_download_url AS pdfDownloadUrl,
+            status AS status,
+            create_by AS createBy,
+            create_time AS createTime,
+            update_by AS updateBy,
+            update_time AS updateTime,
+            deleted AS deleted
+        FROM
+            ws_cloud_pay.electronicreceipt_record
+        WHERE
+            deleted = '0'
+            AND
+            payment_code = #{paymentCode}
+    </select>
+</mapper>

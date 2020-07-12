@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.rltx.wspay.other.dao.UploadPhotoDao">
+
+    <insert id="insert" parameterType="com.rltx.wspay.other.entity.PhotoEntity" useGeneratedKeys="true" keyProperty="id">
+        INSERT INTO ws_cloud_pay.merch_photo (
+            out_trade_no,
+            photo_url,
+            merch_user_code,
+            type,
+            photo_type,
+            create_by,
+            create_time,
+            update_by,
+            update_time
+        )
+        VALUES (
+            #{entity.outTradeNo},
+            #{entity.photoUrl},
+            #{entity.merchUserCode},
+            #{entity.type},
+            #{entity.photoType},
+            #{entity.createBy},
+            #{entity.createTime},
+            #{entity.updateBy},
+            #{entity.updateTime}
+        )
+    </insert>
+
+
+    <select id="select" parameterType="String" resultType="com.rltx.wspay.other.entity.PhotoEntity">
+        SELECT
+            out_trade_no AS outTradeNo,
+            photo_url AS photoUrl,
+            merch_user_code AS merchUserCode,
+            type AS type,
+            photo_type AS photoType,
+            create_by AS createBy,
+            create_time AS createTime,
+            update_by AS updateBy,
+            update_time AS updateTime,
+            deleted AS deleted
+        FROM
+            ws_cloud_pay.merch_photo
+        WHERE
+            deleted = '0'
+            AND
+            merch_user_code = #{merchUserCode}
+            AND
+            type = #{type}
+    </select>
+
+</mapper>

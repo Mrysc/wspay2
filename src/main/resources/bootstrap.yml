@@ -1,0 +1,31 @@
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://rltx-server-enterprise-lightweight-registry:8001/eureka/
+  instance:
+    prefer-ip-address: false
+    hostname:  ws-cloud-pay
+
+---
+spring:
+  profiles: dev, test, staging, production
+  application:
+    name: ws-cloud-pay
+  cloud:
+    config:
+
+      #      profile: dev
+      #      label: config
+      discovery:
+        enabled: true                                 # 默认false，设为true表示使用注册中心中的configserver配置而不自己配置configserver的uri
+        serviceId: rltx-server-enterprise-lightweight-config  # 指定config server在服务发现中的serviceId，默认为：configserver
+---
+spring:
+  profiles: local
+  application:
+    name:  ws-cloud-pay
+  cloud:
+    config:
+      discovery:
+        enabled: true
+        serviceId: rltx-server-enterprise-lightweight-config

@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.rltx.wspay.bindbankcard.dao.SelfRegisterBindPendRecDao" >
+
+    <insert id="insert" useGeneratedKeys="true" keyProperty="id" keyColumn="id">
+        insert into ws_cloud_pay.self_register_bind_pend_rec (
+            code,
+            driver_code,
+            driver_bank_card_relation_code,
+            driver_bank_account_name,
+            driver_bank_card_no,
+            driver_id_no,
+            driver_register_status,
+            driver_bind_card_status,
+            driver_register_num,
+            driver_bind_num,
+            create_by,
+            create_time,
+            update_by,
+            update_time
+        )values (
+            #{code},
+            #{driverCode},
+            #{driverBankCardRelationCode},
+            #{driverBankAccountName},
+            #{driverBankCardNo},
+            #{driverIdNo},
+            #{driverRegisterStatus},
+            #{driverBindCardStatus},
+            #{driverRegisterNum},
+            #{driverBindNum},
+            #{createBy},
+            #{createTime},
+            #{updateBy},
+            #{updateTime}
+        )
+    </insert>
+
+
+
+    <select id="selectList" resultType="com.rltx.wspay.bindbankcard.entity.SelfRegisterBindPendRecEntity">
+        SELECT
+            id AS "id",
+            code AS "code",
+            driver_code as "driverCode",
+            driver_bank_card_relation_code as "driverBankCardRelationCode",
+            driver_bank_account_name as "driverBankAccountName",
+            driver_bank_card_no as "driverBankCardNo",
+            driver_id_no as "driverIdNo",
+            merch_id as "merchantId",
+            driver_register_status as "driverRegisterStatus",
+            driver_bind_card_status as "driverBindCardStatus",
+            driver_register_num as "driverRegisterNum",
+            driver_bind_num as "driverBindNum"
+        FROM
+            ws_cloud_pay.self_register_bind_pend_rec
+        WHERE
+            <if test="params.driverCode != null and params.driverCode != ''">
+                 and driver_code = #{params.driverCode}
+            </if>
+            <if test="params.driverBankAccountName != null and params.driverBankAccountName != ''">
+                 and driver_bank_account_name = #{params.driverBankAccountName}
+            </if>
+            <if test="params.driverBankCardNo != null and params.driverBankCardNo != ''">
+                and driver_bank_card_no = #{params.driverBankCardNo}
+            </if>
+            <if test="params.driverIdNo != null and params.driverIdNo != ''">
+                and driver_id_no = #{params.driverIdNo}
+            </if>
+            <if test="params.driverRegisterStatus != null and params.driverRegisterStatus != ''">
+                and driver_register_status = #{params.payeeIdNo}
+            </if>
+            <if test="params.driverBindCardStatus != null and params.driverBindCardStatus != ''">
+                and driver_bind_card_status = #{params.payeeRegisterStatus}
+            </if>
+            AND deleted = '0'
+    </select>
+
+    <update id="updateMerchantInfo">
+        update ws_cloud_pay.self_register_bind_pend_rec
+        set
+          merch_id = #{merchantId},
+          driver_register_status = #{driverRegisterStatus},
+          update_by = #{updateBy},
+          update_time = #{updateTime}
+         where code = #{code}
+    </update>
+
+
+</mapper>

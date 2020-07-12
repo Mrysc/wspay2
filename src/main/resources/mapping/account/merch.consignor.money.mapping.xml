@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.rltx.wspay.account.dao.MerchConsignorMoneyDao">
+    <insert id="insert" parameterType="com.rltx.wspay.account.entity.MerchConsignorMoneyEntity" useGeneratedKeys="true" keyProperty="id">
+        INSERT INTO ws_cloud_pay.merch_consignor_money (
+            merch_id,
+            merch_user_code,
+            merch_name,
+            money,
+            create_by,
+            create_time,
+            update_by,
+            update_time
+        )
+        VALUES (
+            #{entity.merchId},
+            #{entity.merchUserCode},
+            #{entity.merchName},
+            #{entity.money},
+            #{entity.createBy},
+            #{entity.createTime},
+            #{entity.updateBy},
+            #{entity.updateTime}
+        )
+    </insert>
+
+    <update id="update">
+        UPDATE
+        ws_cloud_pay.merch_consignor_money
+        SET
+        money = #{entity.money},
+        update_by = #{entity.updateBy},
+        update_time = #{entity.updateTime}
+        WHERE
+        merch_id = #{entity.merchId}
+    </update>
+
+    <select id="selectByMerchId" parameterType="String" resultType="com.rltx.wspay.account.entity.MerchConsignorMoneyEntity">
+        SELECT
+            merch_id AS merchId,
+            merch_user_code AS merchUserCode,
+            merch_name AS merchName,
+            money AS money,
+            create_by AS createBy,
+            create_time AS createTime,
+            update_by AS updateBy,
+            update_time AS updateTime,
+            deleted AS deleted
+
+        FROM
+            ws_cloud_pay.merch_consignor_money
+        WHERE
+            deleted = '0'
+            AND
+            merch_id = #{merchId}
+    </select>
+</mapper>

@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.rltx.wspay.bindbankcard.dao.DriverBankCardDao" >
+
+    <insert id="insert" useGeneratedKeys="true" keyProperty="id" keyColumn="id">
+        insert into ws_cloud_pay.driver_bank_card (
+            code,
+            bank_account_name,
+            bank_card_no,
+            id_number,
+            phone,
+            validate_status,
+            create_by,
+            create_time,
+            update_by,
+            update_time
+        )values (
+            #{code},
+            #{bankAccountName},
+            #{bankCardNo},
+            #{idNumber},
+            #{phone},
+            #{validateStatus},
+            #{createBy},
+            #{createTime},
+            #{updateBy},
+            #{updateTime}
+        )
+
+    </insert>
+
+    <select id="countByBankCardNo" resultType="java.lang.Integer">
+        SELECT
+            COUNT( 1 )
+        FROM
+            ws_cloud_pay.driver_bank_card
+        WHERE
+            bank_card_no = #{bankCardNo}
+            AND deleted = '0'
+    </select>
+
+    <select id="select" resultType="com.rltx.wspay.bindbankcard.entity.DriverBankCardEntity">
+        SELECT
+            id AS "id",
+            CODE AS "code",
+            bank_account_name AS "bankAccountName",
+            bank_card_no AS "bankCardNo",
+            id_number AS "idNumber",
+            phone AS "phone",
+            validate_status AS "validateStatus"
+        FROM
+            ws_cloud_pay.driver_bank_card
+        WHERE
+             bank_card_no = #{bankCardNo}
+            AND deleted = '0'
+    </select>
+
+
+</mapper>

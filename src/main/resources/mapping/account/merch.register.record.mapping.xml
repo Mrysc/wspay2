@@ -1,0 +1,165 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.rltx.wspay.account.dao.MerchRegisterRecordDao">
+
+
+    <insert id="insert" parameterType="com.rltx.wspay.account.entity.MerchRegisterRecordEntity" useGeneratedKeys="true" keyProperty="id">
+        INSERT INTO ws_cloud_pay.merch_register_record (
+            out_trade_no,
+            out_merch_Id,
+            merch_user_code,
+            merch_name,
+            name,
+            phone,
+            type,
+            merch_type,
+            is_personal,
+            request_data,
+            create_by,
+            create_time,
+            update_by,
+            update_time
+        )
+        VALUES (
+            #{entity.outTradeNo},
+            #{entity.outMerchId},
+            #{entity.merchUserCode},
+            #{entity.merchName},
+            #{entity.name},
+            #{entity.phone},
+            #{entity.type},
+            #{entity.merchType},
+            #{entity.isPersonal},
+            #{entity.requestData},
+            #{entity.createBy},
+            #{entity.createTime},
+            #{entity.updateBy},
+            #{entity.updateTime}
+        )
+    </insert>
+
+
+    <update id="update">
+        UPDATE
+        ws_cloud_pay.merch_register_record
+        SET
+        order_no = #{entity.orderNo},
+        merch_id = #{entity.merchId},
+        response_data = #{entity.responseData},
+        result_status = #{entity.resultStatus},
+        update_by = #{entity.updateBy},
+        update_time = #{entity.updateTime}
+        WHERE
+        out_trade_no = #{entity.outTradeNo}
+    </update>
+
+
+    <update id="updateMerchId">
+        UPDATE
+        ws_cloud_pay.merch_register_record
+        SET
+        merch_id = #{entity.merchId},
+        update_by = #{entity.updateBy},
+        update_time = #{entity.updateTime}
+        WHERE
+        out_trade_no = #{entity.outTradeNo}
+    </update>
+
+    <select id="selectByMerchUserCode" parameterType="String" resultType="com.rltx.wspay.account.entity.MerchRegisterRecordEntity">
+        SELECT
+            out_trade_no AS outTradeNo,
+            out_merch_Id AS outMerchId,
+            merch_user_code AS merchUserCode,
+            merch_name AS merchName,
+            name AS name,
+            phone AS phone,
+            type AS type,
+            merch_type AS merchType,
+            is_personal AS isPersonal,
+            request_data AS requestData,
+            response_data AS responseData,
+            order_no AS orderNo,
+            result_status AS resultStatus,
+            create_by AS createBy,
+            create_time AS createTime,
+            update_by AS updateBy,
+            update_time AS updateTime,
+            deleted AS deleted
+        FROM
+            ws_cloud_pay.merch_register_record
+        WHERE
+            deleted = '0'
+            AND
+            merch_user_code = #{merchUserCode}
+
+    </select>
+
+    <select id="selectByOutTradeNo" parameterType="String" resultType="com.rltx.wspay.account.entity.MerchRegisterRecordEntity">
+        SELECT
+            out_trade_no AS outTradeNo,
+            out_merch_Id AS outMerchId,
+            merch_user_code AS merchUserCode,
+            merch_name AS merchName,
+            name AS name,
+            phone AS phone,
+            type AS type,
+            merch_type AS merchType,
+            is_personal AS isPersonal,
+            request_data AS requestData,
+            response_data AS responseData,
+            order_no AS orderNo,
+            result_status AS resultStatus,
+            create_by AS createBy,
+            create_time AS createTime,
+            update_by AS updateBy,
+            update_time AS updateTime,
+            deleted AS deleted
+        FROM
+            ws_cloud_pay.merch_register_record
+        WHERE
+            deleted = '0'
+            AND
+            out_trade_no = #{outTradeNo}
+
+    </select>
+
+    <select id="selectList" resultType="com.rltx.wspay.account.entity.MerchRegisterRecordEntity">
+        SELECT
+            out_trade_no AS outTradeNo,
+            out_merch_Id AS outMerchId,
+            merch_user_code AS merchUserCode,
+            merch_name AS merchName,
+            name AS name,
+            phone AS phone,
+            type AS type,
+            merch_type AS merchType,
+            is_personal AS isPersonal,
+            request_data AS requestData,
+            response_data AS responseData,
+            order_no AS orderNo,
+            result_status AS resultStatus,
+            create_by AS createBy,
+            create_time AS createTime,
+            update_by AS updateBy,
+            update_time AS updateTime,
+            deleted AS deleted
+        FROM
+            ws_cloud_pay.merch_register_record
+        WHERE
+            deleted = '0'
+            <if test="params.merchUserCode != null and params.merchUserCode != ''">
+                and  merch_user_code = #{params.merchUserCode}
+            </if>
+            <if test="params.resultStatusList != null and params.resultStatusList.size > 0">
+                and result_status
+                IN
+                <foreach open="(" close=")" separator="," collection="params.resultStatusList" item="item">
+                    #{item}
+                </foreach>
+            </if>
+            <if test="params.resultStatus != null and params.resultStatus != ''">
+                and result_status = #{params.resultStatus}
+            </if>
+    </select>
+
+</mapper>

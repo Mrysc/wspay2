@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.rltx.wspay.account.dao.MemberPersonInfoDao">
+
+
+    <!-- Start Auto Common -->
+
+    <select id="select" resultType="com.rltx.wspay.account.entity.MemberPersonInfoEntity">
+        SELECT
+            id                                        AS id,
+            code                                      AS code,
+            unique_secret                             AS uniqueSecret,
+            request_org_code                          AS requestOrgCode,
+            request_org_fullname                      AS requestOrgFullname,
+            request_user_code                         AS requestUserCode,
+            request_user_fullname                     AS requestUserFullname,
+            request_time                              AS requestTime,
+            audit_user_code                           AS auditUserCode,
+            audit_user_fullname                       AS auditUserFullname,
+            audit_time                                AS auditTime,
+            cert_status                               AS certStatus,
+            user_status                               AS userStatus,
+            blacklist_flag                            AS blacklistFlag,
+            root_flag                                 AS rootFlag,
+            user_type                                 AS userType,
+            full_name                                 AS fullName,
+            position_name                             AS positionName,
+            gender                                    AS gender,
+            phone                                     AS phone,
+            email                                     AS email,
+            identity_number                           AS identityNumber,
+            identity_resource_code                    AS identityResourceCode,
+            identity_expiration_date                  AS identityExpirationDate,
+            driver_license_no                         AS driverLicenseNo,
+            driver_license_resource_code              AS driverLicenseResourceCode,
+            driver_license_expiration_date            AS driverLicenseExpirationDate,
+            driver_license_accept_type                AS driverLicenseAcceptType,
+            qualification_certificate_number          AS qualificationCertificateNumber,
+            qualification_certificate_resource_code   AS qualificationCertificateResourceCode,
+            qualification_certificate_expiration_date AS qualificationCertificateExpirationDate,
+            credit_certificate_resource_code          AS creditCertificateResourceCode,
+            safety_agreement_resource_code            AS safetyAgreementResourceCode,
+            pre_job_training_resource_code            AS preJobTrainingResourceCode,
+            bank_account_code                         AS bankAccountCode,
+            bank_account_name                         AS bankAccountName,
+            bank_account_description                  AS bankAccountDescription,
+            fuel_card_no                              AS fuelCardNo,
+            bank_name                                 AS bankName,
+            bank_account_no                           AS bankAccountNo,
+            head_picture_resource_code                AS headPictureResourceCode,
+            political_status                          AS politicalStatus,
+            marital_status                            AS maritalStatus,
+            native_place                              AS nativePlace,
+            registed_residence                        AS registedResidence,
+            identity_card_address                     AS identityCardAddress,
+            current_residence                         AS currentResidence,
+            emergency_contact_person                  AS emergencyContactPerson,
+            emergency_contact_phone                   AS emergencyContactPhone,
+            school_of_graduation                      AS schoolOfGraduation,
+            education                                 AS education,
+            major                                     AS major,
+            start_date_of_first_job                   AS startDateOfFirstJob,
+            employment_date                           AS employmentDate,
+            custom_data                               AS customData,
+            user_tag                                  AS userTag,
+            description                               AS description,
+            audit_description                         AS auditDescription,
+            remark                                    AS remark,
+            disabled                                  AS disabled,
+            deleted                                   AS deleted,
+            module_code                               AS moduleCode,
+            creator_user_code                         AS creatorUserCode,
+            creator_username                          AS creatorUsername,
+            create_time                               AS createTime,
+            update_user_code                          AS updateUserCode,
+            update_username                           AS updateUsername,
+            update_time                               AS updateTime,
+            ip                                        AS ip,
+            operator_longitude                        AS operatorLongitude,
+            operator_latitude                         AS operatorLatitude,
+            owner_user_code                           AS ownerUserCode,
+            owner_org_code                            AS ownerOrgCode,
+            owner_org_name                            AS ownerOrgName,
+            synchronous_id                            AS synchronousId,
+            upload_status                             AS uploadStatus
+        FROM
+            member.member_person_info
+        WHERE
+            code = #{code}
+        AND
+            disabled = 0
+        AND
+            deleted = 0
+    </select>
+
+    <select id="selectResourceImgByIdNumber"  resultType="com.rltx.wspay.account.entity.MemberPersonInfoEntity">
+        SELECT
+            id                                        AS id,
+            code                                      AS code,
+            full_name                                 AS fullName,
+            phone                                     AS phone,
+            email                                     AS email,
+            identity_number                           AS identityNumber,
+            identity_resource_code                    AS identityResourceCode
+        FROM
+            member.member_person_info
+        WHERE
+            identity_number = #{idNumber}
+        AND
+            disabled = 0
+        AND
+            deleted = 0
+    </select>
+</mapper>
+
+

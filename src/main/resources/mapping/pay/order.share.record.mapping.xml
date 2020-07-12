@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.rltx.wspay.pay.dao.OrderShareRecordDao">
+
+    <insert id="insert" parameterType="com.rltx.wspay.pay.entity.OrderShareEntity" useGeneratedKeys="true" keyProperty="id">
+        INSERT INTO ws_cloud_pay.order_share_record (
+            merch_id,
+            out_trade_no,
+            merch_user_code,
+            merch_name,
+            type,
+            relate_order_no,
+            total_amount,
+            amount,
+            participant_id,
+            participant_type,
+            purpose,
+            request_data,
+            create_by,
+            create_time,
+            update_by,
+            update_time
+        )
+        VALUES (
+            #{entity.merchId},
+            #{entity.outTradeNo},
+            #{entity.merchUserCode},
+            #{entity.merchName},
+            #{entity.type},
+            #{entity.relateOrderNo},
+            #{entity.totalAmount},
+            #{entity.amount},
+            #{entity.participantId},
+            #{entity.participantType},
+            #{entity.purpose},
+            #{entity.requestData},
+            #{entity.createBy},
+            #{entity.createTime},
+            #{entity.updateBy},
+            #{entity.updateTime}
+        )
+    </insert>
+
+
+    <update id="update">
+        UPDATE
+        ws_cloud_pay.order_share_record
+        SET
+        response_data = #{entity.responseData},
+        share_order_no = #{entity.shareOrderNo},
+        update_by = #{entity.updateBy},
+        update_time = #{entity.updateTime}
+        WHERE
+        out_trade_no = #{entity.outTradeNo}
+    </update>
+
+    <update id="updateNotify">
+        UPDATE
+        ws_cloud_pay.order_share_record
+        SET
+        status = #{entity.status},
+        notify_data = #{entity.notifyData},
+        share_date = #{entity.shareDate}
+        WHERE
+        out_trade_no = #{entity.outTradeNo}
+    </update>
+
+    <select id="selectByOutTradeNo" parameterType="String" resultType="com.rltx.wspay.pay.entity.OrderShareEntity">
+        SELECT
+            id AS id,
+            merch_id AS merchId,
+            out_trade_no AS outTradeNo,
+            merch_user_code AS merchUserCode,
+            merch_name AS merchName,
+            type AS type,
+            relate_order_no AS relateOrderNo,
+            total_amount AS totalAmount,
+            amount AS amount,
+            participant_id AS participantId,
+            participant_type AS participantType,
+            purpose AS purpose,
+            share_order_no AS shareOrderNo,
+            request_data AS requestData,
+            response_data AS responseData,
+            result_status AS resultStatus,
+            create_by AS createBy,
+            create_time AS createTime,
+            update_by AS updateBy,
+            update_time AS updateTime,
+            deleted AS deleted
+        FROM
+            ws_cloud_pay.order_share_record
+        WHERE
+            deleted = '0'
+            AND
+            out_trade_no = #{outTradeNo}
+    </select>
+    <select id="selectByRelateOrderNo" parameterType="String" resultType="com.rltx.wspay.pay.entity.OrderShareEntity">
+        SELECT
+            id AS id,
+            merch_id AS merchId,
+            out_trade_no AS outTradeNo,
+            merch_user_code AS merchUserCode,
+            merch_name AS merchName,
+            type AS type,
+            relate_order_no AS relateOrderNo,
+            total_amount AS totalAmount,
+            amount AS amount,
+            participant_id AS participantId,
+            participant_type AS participantType,
+            purpose AS purpose,
+            share_order_no AS shareOrderNo,
+            request_data AS requestData,
+            response_data AS responseData,
+            result_status AS resultStatus,
+            create_by AS createBy,
+            create_time AS createTime,
+            update_by AS updateBy,
+            update_time AS updateTime,
+            deleted AS deleted
+        FROM
+            ws_cloud_pay.order_share_record
+        WHERE
+            deleted = '0'
+            AND
+            relate_order_no = #{relateOrderNo}
+    </select>
+
+</mapper>

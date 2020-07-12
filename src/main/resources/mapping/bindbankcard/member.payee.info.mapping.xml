@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.rltx.wspay.bindbankcard.dao.OtherMemberPayeeInfoDao" >
+
+    <insert id="insert" useGeneratedKeys="true" keyProperty="id" keyColumn="id">
+        insert into ws_cloud_pay.other_member_payee_info (
+            code,
+            full_name,
+            id_number,
+            identity_resource_code,
+            create_by,
+            create_time,
+            update_by,
+            update_time
+        )values (
+            #{code},
+            #{fullName},
+            #{idNumber},
+            #{identityResourceCode},
+            #{createBy},
+            #{createTime},
+            #{updateBy},
+            #{updateTime}
+        )
+    </insert>
+
+    <insert id="insertSelect" >
+        insert  into ws_cloud_pay.other_member_payee_info (
+            code,
+            full_name,
+            id_number,
+            identity_resource_code,
+            create_by,
+            create_time,
+            update_by,
+            update_time
+        )values (
+            #{code},
+            #{fullName},
+            #{idNumber},
+            #{identityResourceCode},
+            #{createBy},
+            #{createTime},
+            #{updateBy},
+            #{updateTime}
+        )
+        ON DUPLICATE KEY UPDATE update_time = #{updateTime}
+    </insert>
+
+
+
+    <select id="select" resultType="com.rltx.wspay.bindbankcard.entity.OtherMemberPayeeInfoEntity">
+        SELECT
+            id AS "id",
+            code AS "code",
+            full_name as "fullName",
+            id_number AS "idNumber",
+            identity_resource_code AS "identityResourceCode"
+        FROM
+            ws_cloud_pay.other_member_payee_info
+        WHERE
+             id_number = #{params.idNumber}
+            AND deleted = '0'
+    </select>
+
+
+</mapper>

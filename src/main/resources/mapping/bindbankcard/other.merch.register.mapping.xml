@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.rltx.wspay.bindbankcard.dao.OtherMerchRegisterDao" >
+
+    <insert id="insert" useGeneratedKeys="true" keyProperty="id" keyColumn="id">
+        insert into ws_cloud_pay.other_merch_register (
+            code,
+            payee_user_code,
+            outer_payee_user_code,
+            merchant_id,
+            bank_card_no,
+            validate_status,
+            create_by,
+            create_time,
+            update_by,
+            update_time
+        )values (
+            #{code},
+            #{payeeUserCode},
+            #{outerPayeeUserCode},
+            #{merchantId},
+            #{bankCardNo},
+            #{validateStatus},
+            #{createBy},
+            #{createTime},
+            #{updateBy},
+            #{updateTime}
+        )
+    </insert>
+
+
+
+    <select id="selectList" resultType="com.rltx.wspay.bindbankcard.entity.OtherMerchRegisterEntity">
+        SELECT
+            id AS "id",
+            code AS "code",
+            payee_user_code as "payeeUserCode",
+            outer_payee_user_code as "outerPayeeUserCode",
+            merchant_id as "merchantId",
+            bank_card_no as "bankCardNo",
+            validate_status as "validateStatus"
+        FROM
+            ws_cloud_pay.other_merch_register
+        WHERE
+              deleted = '0'
+             <if test="params.payeeUserCode != null and params.payeeUserCode != ''">
+                 and payee_user_code = #{params.payeeUserCode}
+             </if>
+              <if test="params.payeeIdNo != null and params.payeeIdNo!= ''">
+                  and payee_id_no = #{params.payeeIdNo}
+              </if>
+    </select>
+
+
+</mapper>

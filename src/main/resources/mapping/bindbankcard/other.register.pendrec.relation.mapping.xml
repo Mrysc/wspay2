@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.rltx.wspay.bindbankcard.dao.OtherRegisterPendRecRelationDao" >
+
+    <insert id="insert" useGeneratedKeys="true" keyProperty="id" keyColumn="id">
+        insert into ws_cloud_pay.other_register_pending_rec_relation (
+            code,
+            pending_rec_code,
+            payee_user_code,
+            outer_payee_user_code,
+            trade_order_no,
+            merchant_id,
+            payee_register_status,
+            create_by,
+            create_time,
+            update_by,
+            update_time
+        )values (
+            #{code},
+            #{pendingRecCode},
+            #{payeeUserCode},
+            #{outerPayeeUserCode},
+            #{tradeOrderNo},
+            #{merchantId},
+            #{payeeRegisterStatus},
+            #{createBy},
+            #{createTime},
+            #{updateBy},
+            #{updateTime}
+        )
+    </insert>
+
+    <update id="update">
+        update ws_cloud_pay.other_register_pending_rec_relation
+        set
+          merchant_id = #{merchantId},
+          payee_register_status = #{payeeRegisterStatus},
+          update_time = #{updateTime},
+          update_by = #{updateBy}
+        where
+          trade_order_no = #{tradeOrderNo}
+
+    </update>
+
+
+    <select id="select" resultType="com.rltx.wspay.bindbankcard.entity.OtherRegisterPendRecRelationEntity">
+        SELECT
+            id AS "id",
+            code AS "code",
+            pending_rec_code as "pendingRecCode",
+            payee_user_code as "payeeUserCode",
+            outer_payee_user_code as "outerPayeeUserCode",
+            trade_order_no as "tradeOrderNo",
+            merchant_id as "merchantId",
+            payee_register_status as "payeeRegisterStatus"
+        FROM
+            ws_cloud_pay.other_register_bind_pend_rec
+        WHERE
+            trade_order_no = #{params.tradeOrderNo}
+
+            <if test="params.pendingRecCode != null and params.pendingRecCode != ''">
+                 and pending_rec_code = #{params.pendingRecCode}
+            </if>
+            <if test="params.payeeUserCode != null and params.payeeUserCode != ''">
+                 and payee_user_code = #{params.payeeUserCode}
+            </if>
+
+            AND deleted = '0'
+    </select>
+
+
+</mapper>

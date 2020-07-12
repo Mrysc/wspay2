@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.rltx.wspay.account.dao.MerchBankAccountDao">
+
+
+    <insert id="insert" parameterType="com.rltx.wspay.account.entity.MerchBankAccountEntity" useGeneratedKeys="true" keyProperty="id">
+        INSERT INTO ws_cloud_pay.merch_bank_account (
+            merch_id,
+            out_trade_id,
+            merch_user_code,
+            merch_name,
+            type,
+            acct_type,
+            request_data,
+            create_by,
+            create_time,
+            update_by,
+            update_time
+        )
+        VALUES (
+            #{entity.merchId},
+            #{entity.outTradeId},
+            #{entity.merchUserCode},
+            #{entity.merchName},
+            #{entity.type},
+            #{entity.acctType},
+            #{entity.requestData},
+            #{entity.createBy},
+            #{entity.createTime},
+            #{entity.updateBy},
+            #{entity.updateTime}
+        )
+    </insert>
+
+
+    <update id="update">
+        UPDATE
+        ws_cloud_pay.merch_bank_account
+        SET
+        result_status = #{entity.resultStatus},
+        branch_no = #{entity.branchNo},
+        branch_name = #{entity.branchName},
+        bank_card_no = #{entity.bankCardNo},
+        bank_cert_name = #{entity.bankCertName},
+        response_data = #{entity.responseData},
+        update_by = #{entity.updateBy},
+        update_time = #{entity.updateTime}
+        WHERE
+        out_trade_id = #{entity.outTradeId}
+    </update>
+
+    <select id="selectByTrade" parameterType="String" resultType="com.rltx.wspay.account.entity.MerchBankAccountEntity">
+        SELECT
+            merch_id AS merchId,
+            out_trade_id AS outTradeId,
+            merch_user_code AS merchUserCode,
+            merch_name AS merchName,
+            type AS type,
+            acct_type AS acctType,
+            request_data AS requestData,
+            response_data AS responseData,
+            result_status AS resultStatus,
+            branch_no AS branchNo,
+            branch_name AS branchName,
+            bank_card_no AS bankCardNo,
+            bank_cert_name AS bankCertName,
+            create_by AS createBy,
+            create_time AS createTime,
+            update_by AS updateBy,
+            update_time AS updateTime,
+            deleted AS deleted
+        FROM
+            ws_cloud_pay.merch_bank_account
+        WHERE
+            deleted = '0'
+            AND
+            out_trade_id = #{outTradeId}
+    </select>
+</mapper>

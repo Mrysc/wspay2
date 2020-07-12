@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.rltx.wspay.notice.dao.ChargeNotifyRecordDao">
+
+    <insert id="insert" useGeneratedKeys="true" keyProperty="id">
+        INSERT INTO ws_cloud_pay.charge_notify_record (
+            merch_id,
+            merch_user_code,
+            merch_name,
+            order_no,
+            trans_no,
+            channel_id,
+            payer_bank_org_id,
+            payer_card_no,
+            payer_card_name,
+            payee_card_no,
+            payee_card_name,
+            total_amount,
+            currency,
+            transfer_date,
+            memo,
+            extInfo,
+            status,
+            ostro_type,
+            vostro_scene,
+            create_by,
+            create_time,
+            update_by,
+            update_time
+        )
+        VALUES (
+            #{entity.merchantId},
+            #{entity.merchUserCode},
+            #{entity.merchName},
+            #{entity.orderNo},
+            #{entity.transNo},
+            #{entity.channelId},
+            #{entity.payerBankOrgId},
+            #{entity.payerCardNo},
+            #{entity.payerCardName},
+            #{entity.payeeCardNo},
+            #{entity.payeeCardName},
+            #{entity.totalAmount},
+            #{entity.currency},
+            #{entity.transferDate},
+            #{entity.memo},
+            #{entity.extInfo},
+            #{entity.status},
+            #{entity.ostroType},
+            #{entity.vostroScene},
+            #{entity.createBy},
+            #{entity.createTime},
+            #{entity.updateBy},
+            #{entity.updateTime}
+        )
+    </insert>
+
+
+
+    <select id="select" parameterType="String" resultType="com.rltx.wspay.notice.entity.ChargeNotifyRecordEntity">
+        SELECT
+            merch_id AS merchId,
+            merch_user_code AS merchUserCode,
+            merch_name AS merchName,
+            order_no AS orderNo,
+            trans_no AS transNo,
+            channel_id AS channelId,
+            payer_bank_org_id AS payerBankOrgId,
+            payer_card_no AS payerCardNo,
+            payer_card_name AS payerCardName,
+            payee_card_no AS payeeCardNo,
+            payee_card_name AS payeeCardName,
+            total_amount AS totalAmount,
+            currency AS currency,
+            transfer_date AS transferDate,
+            memo AS memo,
+            extInfo AS extInfo,
+            status AS status,
+            ostro_type AS ostroType,
+            vostro_scene AS vostroScene,
+            create_by AS createBy,
+            create_time AS createTime,
+            update_by AS updateBy,
+            update_time AS updateTime
+        FROM
+            ws_cloud_pay.charge_notify_record
+        WHERE
+            deleted = '0'
+            AND
+            order_no = #{orderNo}
+    </select>
+
+</mapper>
+
+

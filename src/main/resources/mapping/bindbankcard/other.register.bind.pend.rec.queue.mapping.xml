@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.rltx.wspay.bindbankcard.dao.OtherRegisterBindPendRecQueueDao" >
+
+    <insert id="insert" useGeneratedKeys="true" keyProperty="id" keyColumn="id">
+        insert into ws_cloud_pay.other_register_bind_pend_rec_queue (
+            code,
+            driver_code,
+            payee_user_code,
+            payee_bank_account_name,
+            payee_bank_card_no,
+            payee_id_no,
+            queue_status
+            create_by,
+            create_time,
+            update_by,
+            update_time
+        )values (
+            #{code},
+            #{driverCode},
+            #{payeeUserCode},
+            #{payeeBankAccountName},
+            #{payeeBankCardNo},
+            #{payeeIdNo},
+            #{queueStatus},
+            #{createBy},
+            #{createTime},
+            #{updateBy},
+            #{updateTime}
+        )
+    </insert>
+
+
+
+    <select id="selectList" resultType="com.rltx.wspay.bindbankcard.entity.OtherRegisterBindPendRecQueueEntity">
+        SELECT
+            id AS "id",
+            code AS "code",
+            driver_code as  "driverCode",
+            payee_user_code as "payeeUserCode",
+            payee_bank_account_name as "payeeBankAccountName",
+            payee_bank_card_no as "payeeBankCardNo",
+            payee_id_no as "payeeIdNo",
+            queue_status as "queueStatus"
+        FROM
+            ws_cloud_pay.other_register_bind_pend_rec_queue
+        WHERE
+            <if test="params.driverCode != null and params.driverCode != ''">
+                 and driver_code = #{params.driverCode}
+            </if>
+            <if test="params.payeeUserCode != null and params.payeeUserCode != ''">
+                 and payee_user_code = #{params.payeeUserCode}
+            </if>
+            <if test="params.payeeBankAccountName != null and params.payeeBankAccountName != ''">
+                and payee_bank_account_name = #{params.payeeBankAccountName}
+            </if>
+            <if test="params.payeeBankCardNo != null and params.payeeBankCardNo != ''">
+                and payee_bank_card_no = #{params.payeeBankCardNo}
+            </if>
+            <if test="params.payeeIdNo != null and params.payeeIdNo != ''">
+                and payee_id_no = #{params.payeeIdNo}
+            </if>
+            AND deleted = '0'
+    </select>
+
+    <select id="select" resultType="com.rltx.wspay.bindbankcard.entity.OtherRegisterBindPendRecQueueEntity">
+        SELECT
+            id AS "id",
+            code AS "code",
+            driver_code as  "driverCode",
+            payee_user_code as "payeeUserCode",
+            payee_bank_account_name as "payeeBankAccountName",
+            payee_bank_card_no as "payeeBankCardNo",
+            payee_id_no as "payeeIdNo",
+            payee_phone as "payeePhone"
+        FROM
+        ws_cloud_pay.other_register_bind_pend_rec_queue
+        WHERE
+        payee_bank_card_no = #{params.payeeBankCardNo}
+        queue_status != 'F'
+        AND deleted = '0'
+        limit 0
+    </select>
+
+    <select id="selectByFourElements" resultType="com.rltx.wspay.bindbankcard.entity.OtherRegisterBindPendRecQueueEntity">
+         SELECT
+            id AS "id",
+            code AS "code",
+            driver_code as  "driverCode",
+            payee_user_code as "payeeUserCode",
+            payee_bank_account_name as "payeeBankAccountName",
+            payee_bank_card_no as "payeeBankCardNo",
+            payee_id_no as "payeeIdNo",
+            payee_phone as "payeePhone",
+            queue_status as "queueStatus"
+        FROM
+        ws_cloud_pay.other_register_bind_pend_rec_queue
+        WHERE
+        payee_bank_account_name = #{params.payeeAccName}
+        and payee_bank_card_no = #{params.payeeBankCardNo}
+        and payee_id_no = #{params.payeeIdNo}
+        and payee_phone = #{params.payeePhone}
+    </select>
+
+</mapper>
